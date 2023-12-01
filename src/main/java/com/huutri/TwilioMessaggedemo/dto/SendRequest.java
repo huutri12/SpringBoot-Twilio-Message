@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SmsRequest {
+public class SendRequest {
 
     @JsonProperty("phoneNumber")
     private String phoneNumber; // destination

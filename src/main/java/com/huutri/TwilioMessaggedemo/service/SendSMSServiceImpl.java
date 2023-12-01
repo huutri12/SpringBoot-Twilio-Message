@@ -1,6 +1,6 @@
 package com.huutri.TwilioMessaggedemo.service;
 
-import com.huutri.TwilioMessaggedemo.dto.SmsRequest;
+import com.huutri.TwilioMessaggedemo.dto.SendRequest;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class SmsSenderImpl implements SmsSender {
+public class SendSMSServiceImpl implements SendSMSService {
 
     private static final String BASE_URL = "https://3gmyqw.api.infobip.com";
     private static final String API_KEY = "App 1cafa5622aed4b29ea3129fb0413c129-98d8be76-a8da-4a6c-8d21-8491bbf4f098";
@@ -16,23 +16,21 @@ public class SmsSenderImpl implements SmsSender {
 
     private static final String SENDER = "InfoSMS";
     private static final String RECIPIENT = "84862478150";
-    private static final String MESSAGE_TEXT = "This is a sample message";
-
 
     @Autowired
-    public SmsSenderImpl() {
+    public SendSMSServiceImpl() {
 
     }
 
     @Override
-    public void sendSms(SmsRequest smsRequest) throws IOException {
+    public void sendSms(SendRequest sendRequest) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
         String bodyJson = String.format("{\"messages\":[{\"from\":\"%s\",\"destinations\":[{\"to\":\"%s\"}],\"text\":\"%s\"}]}",
                 SENDER,
                 RECIPIENT,
-                MESSAGE_TEXT
+                sendRequest.getMessage()
         );
 
         MediaType mediaType = MediaType.parse(MEDIA_TYPE);

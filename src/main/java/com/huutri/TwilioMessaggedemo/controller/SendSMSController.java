@@ -1,7 +1,7 @@
 package com.huutri.TwilioMessaggedemo.controller;
 
-import com.huutri.TwilioMessaggedemo.dto.SmsRequest;
-import com.huutri.TwilioMessaggedemo.service.SmsSenderImpl;
+import com.huutri.TwilioMessaggedemo.dto.SendRequest;
+import com.huutri.TwilioMessaggedemo.service.SendSMSServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,18 +14,18 @@ import java.io.IOException;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/sms")
-public class TwilioController {
-    private final SmsSenderImpl smsSenderImpl;
+public class SendSMSController {
+    private final SendSMSServiceImpl sendSMSService;
 
     @Autowired
-    public TwilioController(SmsSenderImpl smsSenderImpl) {
-        this.smsSenderImpl = smsSenderImpl;
+    public SendSMSController(SendSMSServiceImpl sendSMSService) {
+        this.sendSMSService = sendSMSService;
     }
 
     @PostMapping
-    public void sendSms(@RequestBody SmsRequest smsRequest) {
+    public void sendSms(@RequestBody SendRequest sendRequest) {
         try {
-            smsSenderImpl.sendSms(smsRequest);
+            sendSMSService.sendSms(sendRequest);
         } catch (IOException e) {
             e.printStackTrace();
         }
